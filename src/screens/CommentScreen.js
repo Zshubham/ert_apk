@@ -4,7 +4,6 @@ import { PostCommetsData, commentCountData, getProfileCommentData } from '../Act
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { BottomSheet } from 'react-native-elements';
 
 const CommentScreen = (props) => {
 
@@ -15,9 +14,11 @@ const CommentScreen = (props) => {
     const CommentData = useSelector(state => state.feed.postCommentData)
     const dispatch = useDispatch();
     const [Comment, setComment] = useState('');
+    // these are all the veriable strong comment data and and dispatch for using all the dispatch actions 
     const Color = '#43D9BD'
 
     useEffect(() => {
+        // this fuction is for geting the users comment data from api 
         dispatch(PostCommetsData(''))
         const data = new FormData()
         data.append('server_key', '5bda6652fe66a3e69331fb4d655db3ba')
@@ -37,6 +38,7 @@ const CommentScreen = (props) => {
     }, [])
 
     const onPressComment = () => {
+        // this fuction is for sending new comment to the post
         const data = new FormData()
         data.append('server_key', '5bda6652fe66a3e69331fb4d655db3ba')
         data.append('type', 'create')
@@ -50,6 +52,7 @@ const CommentScreen = (props) => {
                 if (res.data.api_status == 200) {
                     dispatch(commentCountData(PostId, res.data.data))
                     dispatch(getProfileCommentData(PostId, res.data.data))
+                    // this both dispatch used for comment data to redux store
                     // renderLetestPost()
                     setComment('')
                     //dispatch(PostCommetsData(res.data.data))
@@ -60,7 +63,7 @@ const CommentScreen = (props) => {
 
 
 
-    // console.log(CommentData)
+    // all the ui elements for showing post comment 
     return (
         <SafeAreaView style={{ flex: 2, backgroundColor: '#101726' }}>
             {CommentData ?

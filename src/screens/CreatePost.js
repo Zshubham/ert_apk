@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { CreateNewPost } from '../Actions/index';
 import { useDispatch } from 'react-redux';
 import {
-    ToastAndroid,
     Text,
     TouchableOpacity,
     View,
@@ -24,10 +23,11 @@ import {
     launchImageLibrary
 } from 'react-native-image-picker';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+
 
 
 const options = {
+    // this function is used by image picker
     title: 'Select Image',
     storageOptions: {
         skipBackup: true,
@@ -41,10 +41,12 @@ const options = {
 
 
 const CreatePost = (props) => {
+    // this page is for creating new post
 
     const token = useSelector(state => state.auth.token)
     const dispatch = useDispatch();
     const getUserId = useSelector(state => state.auth.userid)
+    // all the Veriable for getting data from redux store and dispatch for calling all the dispatch functions
 
 
     const [postText, setPostText] = useState('')
@@ -52,6 +54,7 @@ const CreatePost = (props) => {
     const [isVisible, setIsVisible] = useState(false);
     const [response, setresponse] = useState('response');
     const [lodingIndicator, setloadingIndicator] = useState(false);
+    // all the state used by this page stoing values given by user and some of them for storing 
 
 
 
@@ -59,6 +62,7 @@ const CreatePost = (props) => {
 
 
     const openPicker = () => {
+        // this fuction is for picking image from camera
         launchCamera(options, (response) => {
             console.log('Response = ', response);
             if (response.didCancel) {
@@ -76,6 +80,7 @@ const CreatePost = (props) => {
 
 
     const openPicker1 = () => {
+        // this fuction is for picking image from local image from phone gellery
         launchImageLibrary(options, (response) => {
             console.log('Response = ', response);
             if (response.didCancel) {
@@ -108,6 +113,7 @@ const CreatePost = (props) => {
 
 
     const list = [
+        // this list used in side of the bottom sheet
         {
             title: 'Camera', titleStyle: { fontWeight: 'bold' },
             containerStyle: { backgroundColor: 'slateblue' },
@@ -135,13 +141,14 @@ const CreatePost = (props) => {
 
 
     const onPressPost = () => {
+        // this fuction have a dispatch for creating new post with all required properties
         dispatch(CreateNewPost(postText, response, token, getUserId, (item) => setloadingIndicator(item), () => props.navigation.goBack()));
     }
 
 
 
 
-
+    // ui used inside this page 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#101726' }}>
             {lodingIndicator ? <View style={{ flex: 1, justifyContent: 'center', }}>

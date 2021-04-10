@@ -15,18 +15,25 @@ const Stack = createStackNavigator();
 
 const App = () => {
   const dispatch = useDispatch();
+  // this dispatch veriable is for using for all the action in dispatch finction 
   const token = useSelector(state => state.auth.token)
+  // this veriable is for us user token in every login calling access token
 
   useEffect(() => {
+    // this function is calling every time user login
     dispatch(setToken())
     dispatch(getUserId())
+    // this both dispatch store new user accsses_token and user id
 
   }, [])
 
   const onPressLogout = () => {
+    // function is for user log out from app
     dispatch(logOut())
   }
 
+
+  // down below all the pages in this app some accses without login nad some of them after log in
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -98,8 +105,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-//{x==5?shubham:nikhil}

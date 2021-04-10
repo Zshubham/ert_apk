@@ -14,10 +14,14 @@ const UserProfile = (props) => {
     const token = useSelector(state => state.auth.token)
     const userFeedData = useSelector(state => state.feed.userFeedData)
     const [userData, setUserData] = useState('')
+    // all the veriable is used storing and bring data from redux store
     const Color = '#43D9BD'
+    // this color veriable is used for ActivityIndicatore
 
     useEffect(() => {
+        // function call first ccome to user page for bring user data and post form api and stoing to redux store
         dispatch(UserFeed(''))
+        // this dispatch is used for setting userFeed for null
         const data = new FormData()
         data.append('server_key', '5bda6652fe66a3e69331fb4d655db3ba')
         data.append('fetch', 'user_data')
@@ -35,6 +39,7 @@ const UserProfile = (props) => {
             })
 
         const get_user_posts = () => {
+            //this function is call geting user post from api
             const data = new FormData()
             data.append('server_key', '5bda6652fe66a3e69331fb4d655db3ba')
             data.append('type', 'get_user_posts')
@@ -48,6 +53,7 @@ const UserProfile = (props) => {
                     //console.log(res.data.data[0].publisher)
                     if (res.data.api_status == 200) {
                         dispatch(UserFeed(res.data.data))
+                        // this dispatch used for storing all the user post data comming from api and stoin to redux store
 
                         //setUserData(res.data.user_data)
                     } else {
@@ -59,12 +65,12 @@ const UserProfile = (props) => {
     }, [])
 
     const PressOnlike = (postid, action) => {
-        //when like button
+        //when like button is clicked 
         dispatch(onlike(postid, action, token))
 
     }
 
-
+    // all the ui elements used in showing user profile and all the posts
     return (
         <SafeAreaView style={{ backgroundColor: '#101726', flex: 1, }}>
             <StatusBar
@@ -292,6 +298,8 @@ const UserProfile = (props) => {
 
     )
 }
+
+// this style is used in post image come from api
 
 const styles = StyleSheet.create({
     imageSize: {

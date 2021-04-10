@@ -9,14 +9,19 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const Newspage = (props) => {
+    // this page is for all by user
 
     const token = useSelector(state => state.auth.token)
     const dispatch = useDispatch();
+    // this dispatch veriable is for using for all the action in dispatch finction 
     const feedData = useSelector(state => state.feed.newsFeedData)
+    // this all veriable is for bring new value to this page by useSelector hook
     const Color = '#43D9BD'
+    // this color veriable used in textinput
 
 
     useEffect(() => {
+        // this function call first when user enter in main page with api call
         const data = new FormData()
         data.append('server_key', '5bda6652fe66a3e69331fb4d655db3ba')
         data.append('type', 'get_news_feed')
@@ -39,11 +44,14 @@ const Newspage = (props) => {
     }, [])
 
     const PressOnlike = (postid, action) => {
-        //when like button
+        //when like button pressed
         dispatch(onlike(postid, action, token))
+        // this dispatch us for storing like data in redux store
 
     }
 
+
+    // all the ui components for news_page
     return (
 
         <SafeAreaView style={{ backgroundColor: '#101726', flex: 1 }}>
@@ -59,6 +67,7 @@ const Newspage = (props) => {
                         //  use for list of data for redeing
                         data={feedData}
                         renderItem={({ item }) => {
+                            // this item is stoing all the data from the feedData coming from
                             return <View
                                 style={{
                                     backgroundColor: '#D7D7D9',
@@ -288,7 +297,7 @@ const Newspage = (props) => {
     );
 }
 
-
+// this style used by post image in flatList
 const styles = StyleSheet.create({
     imageSize: {
         height: 340,

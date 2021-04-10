@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ToastAndroid } from 'react-native';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 
 
 
 export const setToken = () => {
+    // store new accsess data
     return async (dispatch) => {
         const tokenId = await AsyncStorage.getItem('access_token')
         dispatch({ type: 'RESTORE_TOKEN', payload: tokenId });
@@ -14,6 +14,7 @@ export const setToken = () => {
 }
 
 export const removeAccessToken = () => {
+    // removing access data
     return async (dispatch) => {
         await AsyncStorage.removeItem('access_token')
         dispatch({ type: 'REMOVE_TOKEN' });
@@ -21,6 +22,7 @@ export const removeAccessToken = () => {
 }
 
 export const getUserId = () => {
+    // store user id
     return async (dispatch) => {
         const userId = await AsyncStorage.getItem('user_Id')
         dispatch({ type: 'RESTORE_USERID', payload: userId })
@@ -28,33 +30,39 @@ export const getUserId = () => {
 }
 
 export const getNewsFeed = (data) => {
+    // store new news data
     return async (dispatch) => {
         dispatch({ type: 'GET_NEWSFEED', payload: data });
     }
 }
 export const getOnLikeData = (data, reaction) => {
+    // store like data
     return async (dispatch) => {
         dispatch({ type: 'GET_ONLIKE', payload: [data, reaction] });
     }
 }
 export const getUserPostLikeData = (data, reaction) => {
+    // store user like data
     return async (dispatch) => {
         dispatch({ type: 'GET_ONLIKE_PROFILE', payload: [data, reaction] })
         dispatch({ type: 'GET_ONLIKE', payload: [data, reaction] });
     }
 }
 export const commentCountData = (data, newCommentData) => {
+    // store comment data
     return async (dispatch) => {
         dispatch({ type: 'ON_COMMENT_CHANGE', payload: [data, newCommentData] });
 
     }
 }
 export const getProfileCommentData = (data, newCommentData) => {
+    // store comment data from profile page data
     return async (dispatch) => {
         dispatch({ type: 'ON_PROFILE_COMMENT_CHANGE', payload: [data, newCommentData] });
     }
 }
 export const login = (username, password, setloadingIndicator) => {
+    //fuction used in login screen
     return async (dispatch) => {
         setloadingIndicator(true)
         let data = new FormData()
@@ -84,22 +92,26 @@ export const login = (username, password, setloadingIndicator) => {
 }
 
 export const logOut = () => {
+    //fuction from logout user
     return async (dispatch) => {
         ToastAndroid.show('Success full logout', ToastAndroid.SHORT)
         dispatch(removeAccessToken())
     }
 }
 export const PostCommetsData = (Comment) => {
+    // store single comment data
     return async (dispatch) => {
         dispatch({ type: 'GET_POSTCOMMENTS', payload: Comment });
     }
 }
 export const PostNewData = (NewPost) => {
+    // store new post data
     return async (dispatch) => {
         dispatch({ type: 'ON_NEW_POST', payload: NewPost })
     }
 }
 export const CreateNewPost = (postText, response, token, getUserId, setloadingIndicator, back) => {
+    // fuction for creating new posts
     return async (dispatch) => {
         setloadingIndicator(true)
         let data = new FormData()
@@ -135,11 +147,13 @@ export const CreateNewPost = (postText, response, token, getUserId, setloadingIn
 
 }
 export const UserFeed = (Feed) => {
+    // store all post for single user used in profile screen
     return async (dispatch) => {
         dispatch({ type: 'GET_USER_FEED', payload: Feed });
     }
 }
 export const onlike = (postid, action, token) => {
+    // store for storing new like to redux store and server side
     return async (dispatch) => {
         const url = 'https://notifyx.site/hivedin6/api/post-actions?access_token=' + token
         const data = new FormData()

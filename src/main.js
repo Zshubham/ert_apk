@@ -1,3 +1,4 @@
+// this page us for all access page that store in side redux
 import React, { Component } from 'react';
 import App from '../App';
 import { LogBox } from 'react-native';

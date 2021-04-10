@@ -5,16 +5,21 @@ import { useDispatch } from 'react-redux';
 
 const Login = (props) => {
     const Color = '#43D9BD';
+    // this color veriable is used by all the textinput in user in put colors
+
     const [username, setUsename] = React.useState('');
     const [password, setPassword] = React.useState('');
     const dispatch = useDispatch();
+    // this dispatch veriable is for using for all the action in dispatch finction 
     const [lodingIndicator, setloadingIndicator] = useState(false);
+    // these all useState is for storing user credentials and post them over api calls
 
     const onPressLogin = () => {
         dispatch(login(username, password, (item) => setloadingIndicator(item)));
+        // this used for show loading indicator in login screen
 
     }
-
+    // all ui ui component use for user login screen
     return (
         <View
             style={{
@@ -60,6 +65,7 @@ const Login = (props) => {
                         color: '#43D9BD'
 
                     }} >Back</Text>
+                {/* this textinput is for login user is here */}
                 <TextInput
                     placeholder='Username'
                     placeholderTextColor='#43D9BD'
@@ -78,6 +84,7 @@ const Login = (props) => {
                     onChangeText={text => setUsename(text)}
                     value={username}
                 />
+                {/* and this one is used for user password */}
                 <TextInput
                     placeholder='Password'
                     placeholderTextColor='#43D9BD'
@@ -93,6 +100,7 @@ const Login = (props) => {
                     onChangeText={text => setPassword(text)}
                     value={password}
                 />
+                {/* this button is for login user */}
                 <Pressable
                     onPress={() => onPressLogin()}
                     style={{
@@ -113,7 +121,7 @@ const Login = (props) => {
                         }}
                     >Login</Text>
                 </Pressable>
-
+                {/* this one is used to sign in or register */}
                 <Pressable
                     style={{
                         height: 60,
